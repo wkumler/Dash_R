@@ -1,7 +1,15 @@
 
 
 # Setup things ----
-
+library(shiny)
+library(xml2)
+library(tm)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(httr)
+library(png)
+library(jpeg)
 
 
 # Functions ----
