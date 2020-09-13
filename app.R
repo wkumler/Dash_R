@@ -70,7 +70,7 @@ ui <- navbarPage(
           htmlOutput("APOD")
         ),
         verticalLayout(
-          h2("Tides for Seattle"),
+          h2("Tides"),
           htmlOutput("tidechart")
         )
       )
@@ -92,7 +92,7 @@ server <- function(input, output, session){
       xml_child() %>%
       xml_attr("src") %>%
       paste0("https://www.moongiant.com", .) %>%
-      img(src=., style="width: 200px") %>%
+      img(src=., style="height: 200px") %>%
       as.character()
   })
   output$APOD <- renderText({
@@ -107,7 +107,7 @@ server <- function(input, output, session){
     } else {
       img_url %>%
         paste0("https://apod.nasa.gov/apod/", .) %>%
-        img(src=., style="width: 200px") %>%
+        img(src=., style="height: 200px") %>%
         as.character()
     }
   })
@@ -116,7 +116,7 @@ server <- function(input, output, session){
       as.POSIXct() %>%
       `attr<-`("tzone", "America/Los_Angeles") %>%
       format("http://tides.mobilegeographics.com/graphs/7259.png?y=%Y&m=%m&d=%d/") %>%
-      img(src=., style="width:500px") %>%
+      img(src=., style="height:200px") %>%
       as.character()
   })
 }
