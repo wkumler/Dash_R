@@ -13,7 +13,7 @@ library(dplyr)
 
 
 # UI ----
-ui <- navbarPage(
+ui <- function(req){navbarPage(
   title = "Dash_R",
   tabPanel(
     titlePanel("Home"),
@@ -83,7 +83,7 @@ ui <- navbarPage(
       )
     )
   )
-)
+)}
 
 
 
