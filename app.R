@@ -12,14 +12,16 @@ library(dplyr)
 
 
 
+
 # UI ----
 ui <- function(req){navbarPage(theme = "solar.css",
   title = "Dash_R",
   tabPanel(
     titlePanel("Home"),
-    mainPanel(
-      flowLayout(
-        verticalLayout(
+    fluidPage(
+      fluidRow(
+        column(
+          width=3,
           Sys.time() %>%
             as.POSIXct() %>%
             `attr<-`("tzone", "America/Los_Angeles") %>%
@@ -46,14 +48,14 @@ ui <- function(req){navbarPage(theme = "solar.css",
             paste0("(", ., " hours)") %>%
             h3()
         ),
-        
-        verticalLayout(
+        column(
+          width=3,
           h2("Moon phase"),
           htmlOutput("moonimage") %>%
             a(href="https://www.moongiant.com/phase/", target="_blank")
         ),
-        
-        verticalLayout(
+        column(
+          width=3,
           h2("Daylight"),
           "https://sunrise-sunset.org/us/seattle-wa" %>%
             read_html() %>%
@@ -61,21 +63,25 @@ ui <- function(req){navbarPage(theme = "solar.css",
             xml_text() %>%
             paste0("<h4>", ., "</h4>", collapse = "<br/>") %>%
             HTML()
+          
         ),
-        
-        verticalLayout(
+        column(
+          width=3,
           h2("APOD"),
           htmlOutput("APOD") %>%
             a(href="https://apod.nasa.gov/apod/astropix.html", target="_blank")
-        ),
-        
-        verticalLayout(
+          
+        )
+      ),
+      fluidRow(
+        column(
+          width=9,
           h2("Tides"),
           htmlOutput("tidechart") %>%
             a(href="http://tides.mobilegeographics.com/locations/7259.html", target="_blank")
         ),
-        
-        verticalLayout(
+        column(
+          width=3,
           h2("EarthSky"),
           htmlOutput("earthsky") %>%
             a(href="https://earthsky.org/tonight", target="_blank")
