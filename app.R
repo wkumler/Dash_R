@@ -22,52 +22,55 @@ ui <- function(req){navbarPage(theme = "solar.css",
       fluidRow(
         column(
           width=3,
-          Sys.time() %>%
-            as.POSIXct() %>%
-            `attr<-`("tzone", "America/Los_Angeles") %>%
-            format("%I:%M %p<br>%B %e<br>%A") %>%
-            gsub(pattern = "^0", replacement = "", x = .) %>%
-            paste0("It's ", .) %>%
-            HTML() %>%
-            h2(),
-          br(),
-          Sys.time() %>%
-            as.POSIXct() %>%
-            `attr<-`("tzone", "America/Los_Angeles") %>%
-            `-`(strptime("1997-03-28", "%Y-%m-%d")) %>%
-            round() %>%
-            paste("You're", ., "days old today!") %>%
-            h3(),
-          Sys.time() %>%
-            as.POSIXct() %>%
-            `attr<-`("tzone", "America/Los_Angeles") %>%
-            `-`(strptime("1997-03-28", "%Y-%m-%d")) %>%
-            as.numeric() %>%
-            `*`(24) %>%
-            round() %>%
-            paste0("(", ., " hours)") %>%
-            h3()
+          wellPanel(
+            Sys.time() %>%
+              as.POSIXct() %>%
+              `attr<-`("tzone", "America/Los_Angeles") %>%
+              format("%I:%M %p<br>%B %e<br>%A") %>%
+              gsub(pattern = "^0", replacement = "", x = .) %>%
+              paste0("It's ", .) %>%
+              HTML() %>%
+              h1(),
+            br(),
+            Sys.time() %>%
+              as.POSIXct() %>%
+              `attr<-`("tzone", "America/Los_Angeles") %>%
+              `-`(strptime("1997-03-28", "%Y-%m-%d")) %>%
+              round() %>%
+              paste("You're", ., "days old today!") %>%
+              h3(),
+            Sys.time() %>%
+              as.POSIXct() %>%
+              `attr<-`("tzone", "America/Los_Angeles") %>%
+              `-`(strptime("1997-03-28", "%Y-%m-%d")) %>%
+              as.numeric() %>%
+              `*`(24) %>%
+              round() %>%
+              paste0("(", ., " hours)") %>%
+              h3()
+          )
         ),
         column(
           width=3,
-          h2("Moon phase"),
+          h1("Moon phase"),
           htmlOutput("moonimage") %>%
             a(href="https://www.moongiant.com/phase/", target="_blank")
         ),
         column(
           width=3,
-          h2("Daylight"),
-          "https://sunrise-sunset.org/us/seattle-wa" %>%
-            read_html() %>%
-            xml_find_all(xpath = '//div[@id="today"]//p[parent::div[@class="sunrise"]|parent::div[@class="sunset"]]') %>%
-            xml_text() %>%
-            paste0("<h4>", ., "</h4>", collapse = "<br/>") %>%
-            HTML()
-          
+          wellPanel(
+            h1("Daylight"),
+            "https://sunrise-sunset.org/us/seattle-wa" %>%
+              read_html() %>%
+              xml_find_all(xpath = '//div[@id="today"]//p[parent::div[@class="sunrise"]|parent::div[@class="sunset"]]') %>%
+              xml_text() %>%
+              paste0("<h3>", ., "</h3>", collapse = "<br/>") %>%
+              HTML()
+          )
         ),
         column(
           width=3,
-          h2("APOD"),
+          h1("APOD"),
           htmlOutput("APOD") %>%
             a(href="https://apod.nasa.gov/apod/astropix.html", target="_blank")
           
@@ -76,13 +79,13 @@ ui <- function(req){navbarPage(theme = "solar.css",
       fluidRow(
         column(
           width=9,
-          h2("Tides"),
+          h1("Tides"),
           htmlOutput("tidechart") %>%
             a(href="http://tides.mobilegeographics.com/locations/7259.html", target="_blank")
         ),
         column(
           width=3,
-          h2("EarthSky"),
+          h1("EarthSky"),
           htmlOutput("earthsky") %>%
             a(href="https://earthsky.org/tonight", target="_blank")
         )
@@ -105,7 +108,7 @@ server <- function(input, output, session){
       xml_child() %>%
       xml_attr("src") %>%
       paste0("https://www.moongiant.com", .) %>%
-      img(src=., style="height: 200px") %>%
+      img(src=., style="width: 100%; max-height: 30vh; max-width: 30vh") %>%
       as.character()
   })
   output$APOD <- renderText({
@@ -120,7 +123,7 @@ server <- function(input, output, session){
     } else {
       img_url %>%
         paste0("https://apod.nasa.gov/apod/", .) %>%
-        img(src=., style="height: 200px") %>%
+        img(src=., style="width: 100%; max-height: 30vh; max-width: 30vh") %>%
         as.character()
     }
   })
@@ -129,7 +132,7 @@ server <- function(input, output, session){
       as.POSIXct() %>%
       `attr<-`("tzone", "America/Los_Angeles") %>%
       format("http://tides.mobilegeographics.com/graphs/7259.png?y=%Y&m=%m&d=%d/") %>%
-      img(src=., style="height:200px") %>%
+      img(src=., style="width: 100%; max-height: 30vh; max-width: 100vh") %>%
       as.character()
   })
   output$earthsky <- renderText({
@@ -137,7 +140,7 @@ server <- function(input, output, session){
       read_html() %>%
       xml_find_all('//div[@id="tonight"]//img') %>%
       xml_attr("src") %>%
-      img(src=., style="height: 200px") %>%
+      img(src=., style="width: 100%; max-height: 30vh; max-width: 30vh") %>%
       as.character()
   })
 }
