@@ -64,7 +64,11 @@ ui <- navbarPage(
             xml_text() %>%
             paste0("<h4>", ., "</h4>", collapse = "<br/>") %>%
             HTML()
-          )
+        ),
+        verticalLayout(
+          h2("APOD"),
+          htmlOutput("APOD")
+        )
       )
     )
   )
@@ -86,6 +90,20 @@ server <- function(input, output, session){
       paste0("https://www.moongiant.com", .) %>%
       img(src=.) %>%
       as.character()
+  })
+  output$APOD <- renderText({
+    img_url <- "https://apod.nasa.gov/apod/astropix.html" %>%
+      read_html() %>%
+      xml_find_all('/html/body/center[1]/p[2]/a/img') %>%
+      xml_attr("src")
+    if(!nchar(img_url)){
+      return("<p>It's a video today!</p>")
+    } else {
+      img_url %>%
+        paste0("https://apod.nasa.gov/apod/", .) %>%
+        img(src=.) %>%
+        as.character()
+    }
   })
 }
 
