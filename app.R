@@ -94,10 +94,12 @@ server <- function(input, output, session){
   output$APOD <- renderText({
     img_url <- "https://apod.nasa.gov/apod/astropix.html" %>%
       read_html() %>%
-      xml_find_all('/html/body/center[1]/p[2]/a/img') %>%
+      xml_find_all('//img') %>%
       xml_attr("src")
     if(!nchar(img_url)){
-      return("<p>It's a video today!</p>")
+      "It's a video today!" %>%
+        p() %>%
+        as.character()
     } else {
       img_url %>%
         paste0("https://apod.nasa.gov/apod/", .) %>%
