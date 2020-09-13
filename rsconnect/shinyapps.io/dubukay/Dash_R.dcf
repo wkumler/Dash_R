@@ -5,8 +5,8 @@ account: dubukay
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2801054
-bundleId: 3625058
+bundleId: 3625435
 url: https://dubukay.shinyapps.io/Dash_R/
-when: 1600027415.87849
+when: 1600040390.11442
 asMultiple: FALSE
 asStatic: FALSE
