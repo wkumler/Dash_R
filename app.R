@@ -55,7 +55,16 @@ ui <- navbarPage(
         verticalLayout(
           h2("Moon phase"),
           htmlOutput("moonimage")
-        )
+        ),
+        verticalLayout(
+          h2("Daylight"),
+          "https://sunrise-sunset.org/us/seattle-wa" %>%
+            read_html() %>%
+            xml_find_all(xpath = '//div[@id="today"]//p[parent::div[@class="sunrise"]|parent::div[@class="sunset"]]') %>%
+            xml_text() %>%
+            paste0("<h4>", ., "</h4>", collapse = "<br/>") %>%
+            HTML()
+          )
       )
     )
   )
