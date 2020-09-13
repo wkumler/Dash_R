@@ -79,6 +79,12 @@ ui <- navbarPage(
           h2("Tides"),
           htmlOutput("tidechart") %>%
             a(href="http://tides.mobilegeographics.com/locations/7259.html")
+        ),
+        
+        verticalLayout(
+          h2("EarthSky"),
+          htmlOutput("earthsky") %>%
+            a(href="https://earthsky.org/tonight")
         )
       )
     )
@@ -124,6 +130,14 @@ server <- function(input, output, session){
       `attr<-`("tzone", "America/Los_Angeles") %>%
       format("http://tides.mobilegeographics.com/graphs/7259.png?y=%Y&m=%m&d=%d/") %>%
       img(src=., style="height:200px") %>%
+      as.character()
+  })
+  output$earthsky <- renderText({
+    "https://earthsky.org/tonight" %>%
+      read_html() %>%
+      xml_find_all('//div[@id="tonight"]//img') %>%
+      xml_attr("src") %>%
+      img(src=., style="height: 200px") %>%
       as.character()
   })
 }
