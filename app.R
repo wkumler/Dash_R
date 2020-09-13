@@ -52,10 +52,13 @@ ui <- navbarPage(
             paste0("(", ., " hours)") %>%
             h3()
         ),
+        
         verticalLayout(
           h2("Moon phase"),
-          htmlOutput("moonimage")
+          htmlOutput("moonimage") %>%
+            a(href="https://www.moongiant.com/phase/")
         ),
+        
         verticalLayout(
           h2("Daylight"),
           "https://sunrise-sunset.org/us/seattle-wa" %>%
@@ -65,13 +68,17 @@ ui <- navbarPage(
             paste0("<h4>", ., "</h4>", collapse = "<br/>") %>%
             HTML()
         ),
+        
         verticalLayout(
           h2("APOD"),
-          htmlOutput("APOD")
+          htmlOutput("APOD") %>%
+            a(href="https://apod.nasa.gov/apod/astropix.html")
         ),
+        
         verticalLayout(
           h2("Tides"),
-          htmlOutput("tidechart")
+          htmlOutput("tidechart") %>%
+            a(href="http://tides.mobilegeographics.com/locations/7259.html")
         )
       )
     )
