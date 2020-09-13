@@ -13,7 +13,7 @@ library(dplyr)
 
 
 # UI ----
-ui <- function(req){navbarPage(
+ui <- function(req){navbarPage(theme = "solar.css",
   title = "Dash_R",
   tabPanel(
     titlePanel("Home"),
