@@ -24,33 +24,33 @@ ui <- navbarPage(
   tabPanel(
     titlePanel("Home"),
     mainPanel(
-      fluidRow(
-        column(width = 6,
-               Sys.time() %>%
-                 as.POSIXct() %>%
-                 `attr<-`("tzone", "America/Los_Angeles") %>%
-                 format("%I:%M %p<br>%B %e<br>%A") %>%
-                 gsub(pattern = "^0", replacement = "", x = .) %>%
-                 paste0("It's ", .) %>%
-                 HTML() %>%
-                 h2(),
-               br(),
-               Sys.time() %>%
-                 as.POSIXct() %>%
-                 `attr<-`("tzone", "America/Los_Angeles") %>%
-                 `-`(strptime("1997-03-28", "%Y-%m-%d")) %>%
-                 round() %>%
-                 paste("You're", ., "days old today!") %>%
-                 h3(),
-               Sys.time() %>%
-                 as.POSIXct() %>%
-                 `attr<-`("tzone", "America/Los_Angeles") %>%
-                 `-`(strptime("1997-03-28", "%Y-%m-%d")) %>%
-                 as.numeric() %>%
-                 `*`(24) %>%
-                 round() %>%
-                 paste0("(", ., " hours)") %>%
-                 h3()
+      flowLayout(
+        verticalLayout(
+          Sys.time() %>%
+            as.POSIXct() %>%
+            `attr<-`("tzone", "America/Los_Angeles") %>%
+            format("%I:%M %p<br>%B %e<br>%A") %>%
+            gsub(pattern = "^0", replacement = "", x = .) %>%
+            paste0("It's ", .) %>%
+            HTML() %>%
+            h2(),
+          br(),
+          Sys.time() %>%
+            as.POSIXct() %>%
+            `attr<-`("tzone", "America/Los_Angeles") %>%
+            `-`(strptime("1997-03-28", "%Y-%m-%d")) %>%
+            round() %>%
+            paste("You're", ., "days old today!") %>%
+            h3(),
+          Sys.time() %>%
+            as.POSIXct() %>%
+            `attr<-`("tzone", "America/Los_Angeles") %>%
+            `-`(strptime("1997-03-28", "%Y-%m-%d")) %>%
+            as.numeric() %>%
+            `*`(24) %>%
+            round() %>%
+            paste0("(", ., " hours)") %>%
+            h3()
         )
       )
     )
