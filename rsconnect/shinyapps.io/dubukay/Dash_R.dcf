@@ -1,0 +1,12 @@
+name: Dash_R
+title: Dash_R
+username:
+account: dubukay
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2801054
+bundleId: 3625010
+url: https://dubukay.shinyapps.io/Dash_R/
+when: 1600026321.63666
+asMultiple: FALSE
+asStatic: FALSE
