@@ -88,7 +88,7 @@ server <- function(input, output, session){
       xml_child() %>%
       xml_attr("src") %>%
       paste0("https://www.moongiant.com", .) %>%
-      img(src=.) %>%
+      img(src=., style="width: 200px") %>%
       as.character()
   })
   output$APOD <- renderText({
@@ -101,7 +101,7 @@ server <- function(input, output, session){
     } else {
       img_url %>%
         paste0("https://apod.nasa.gov/apod/", .) %>%
-        img(src=.) %>%
+        img(src=., style="width: 200px") %>%
         as.character()
     }
   })
