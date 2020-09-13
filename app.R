@@ -68,6 +68,10 @@ ui <- navbarPage(
         verticalLayout(
           h2("APOD"),
           htmlOutput("APOD")
+        ),
+        verticalLayout(
+          h2("Tides for Seattle"),
+          htmlOutput("tidechart")
         )
       )
     )
@@ -106,6 +110,14 @@ server <- function(input, output, session){
         img(src=., style="width: 200px") %>%
         as.character()
     }
+  })
+  output$tidechart <- renderText({
+    Sys.Date() %>%
+      as.POSIXct() %>%
+      `attr<-`("tzone", "America/Los_Angeles") %>%
+      format("http://tides.mobilegeographics.com/graphs/7259.png?y=%Y&m=%m&d=%d/") %>%
+      img(src=., style="width:500px") %>%
+      as.character()
   })
 }
 
