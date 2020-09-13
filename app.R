@@ -51,6 +51,10 @@ ui <- navbarPage(
             round() %>%
             paste0("(", ., " hours)") %>%
             h3()
+        ),
+        verticalLayout(
+          h2("Moon phase"),
+          htmlOutput("moonimage")
         )
       )
     )
@@ -61,7 +65,19 @@ ui <- navbarPage(
 
 # Server ----
 server <- function(input, output, session){
-  
+  output$moonimage <- renderText({
+    Sys.Date() %>%
+      format("%m/%d/%Y") %>%
+      paste0("https://www.moongiant.com/phase/", .) %>%
+      gsub(pattern = "/0", replacement = "/", x = .) %>%
+      read_html() %>%
+      xml_find_all(xpath = '//*[@id="todayMoonContainer"]') %>%
+      xml_child() %>%
+      xml_attr("src") %>%
+      paste0("https://www.moongiant.com", .) %>%
+      img(src=.) %>%
+      as.character()
+  })
 }
 
 
