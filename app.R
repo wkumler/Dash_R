@@ -22,33 +22,31 @@ ui <- function(req){navbarPage(theme = "solar.css",
       fluidRow(
         column(
           width=3,
-          wellPanel(
-            Sys.time() %>%
-              as.POSIXct() %>%
-              `attr<-`("tzone", "America/Los_Angeles") %>%
-              format("%I:%M %p<br>%B %e<br>%A") %>%
-              gsub(pattern = "^0", replacement = "", x = .) %>%
-              paste0("It's ", .) %>%
-              HTML() %>%
-              h1(),
-            br(),
-            Sys.time() %>%
-              as.POSIXct() %>%
-              `attr<-`("tzone", "America/Los_Angeles") %>%
-              `-`(strptime("1997-03-28", "%Y-%m-%d")) %>%
-              round() %>%
-              paste("You're", ., "days old today!") %>%
-              h3(),
-            Sys.time() %>%
-              as.POSIXct() %>%
-              `attr<-`("tzone", "America/Los_Angeles") %>%
-              `-`(strptime("1997-03-28", "%Y-%m-%d")) %>%
-              as.numeric() %>%
-              `*`(24) %>%
-              round() %>%
-              paste0("(", ., " hours)") %>%
-              h3()
-          )
+          Sys.time() %>%
+            as.POSIXct() %>%
+            `attr<-`("tzone", "America/Los_Angeles") %>%
+            format("%I:%M %p<br>%B %e<br>%A") %>%
+            gsub(pattern = "^0", replacement = "", x = .) %>%
+            paste0("It's ", .) %>%
+            HTML() %>%
+            h1(),
+          br(),
+          Sys.time() %>%
+            as.POSIXct() %>%
+            `attr<-`("tzone", "America/Los_Angeles") %>%
+            `-`(strptime("1997-03-28", "%Y-%m-%d")) %>%
+            round() %>%
+            paste("You're", ., "days old today!") %>%
+            h3(),
+          Sys.time() %>%
+            as.POSIXct() %>%
+            `attr<-`("tzone", "America/Los_Angeles") %>%
+            `-`(strptime("1997-03-28", "%Y-%m-%d")) %>%
+            as.numeric() %>%
+            `*`(24) %>%
+            round() %>%
+            paste0("(", ., " hours)") %>%
+            h3()
         ),
         column(
           width=3,
@@ -58,15 +56,13 @@ ui <- function(req){navbarPage(theme = "solar.css",
         ),
         column(
           width=3,
-          wellPanel(
-            h1("Daylight"),
-            "https://sunrise-sunset.org/us/seattle-wa" %>%
-              read_html() %>%
-              xml_find_all(xpath = '//div[@id="today"]//p[parent::div[@class="sunrise"]|parent::div[@class="sunset"]]') %>%
-              xml_text() %>%
-              paste0("<h3>", ., "</h3>", collapse = "<br/>") %>%
-              HTML()
-          )
+          h1("Daylight"),
+          "https://sunrise-sunset.org/us/seattle-wa" %>%
+            read_html() %>%
+            xml_find_all(xpath = '//div[@id="today"]//p[parent::div[@class="sunrise"]|parent::div[@class="sunset"]]') %>%
+            xml_text() %>%
+            paste0("<h3>", ., "</h3>", collapse = "<br/>") %>%
+            HTML()
         ),
         column(
           width=3,
