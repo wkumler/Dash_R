@@ -50,7 +50,7 @@ ui <- navbarPage(
         verticalLayout(
           h2("Moon phase"),
           htmlOutput("moonimage") %>%
-            a(href="https://www.moongiant.com/phase/")
+            a(href="https://www.moongiant.com/phase/", target="_blank")
         ),
         
         verticalLayout(
@@ -66,19 +66,19 @@ ui <- navbarPage(
         verticalLayout(
           h2("APOD"),
           htmlOutput("APOD") %>%
-            a(href="https://apod.nasa.gov/apod/astropix.html")
+            a(href="https://apod.nasa.gov/apod/astropix.html", target="_blank")
         ),
         
         verticalLayout(
           h2("Tides"),
           htmlOutput("tidechart") %>%
-            a(href="http://tides.mobilegeographics.com/locations/7259.html")
+            a(href="http://tides.mobilegeographics.com/locations/7259.html", target="_blank")
         ),
         
         verticalLayout(
           h2("EarthSky"),
           htmlOutput("earthsky") %>%
-            a(href="https://earthsky.org/tonight")
+            a(href="https://earthsky.org/tonight", target="_blank")
         )
       )
     )
